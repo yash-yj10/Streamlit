@@ -2,9 +2,11 @@ import streamlit as st
 import requests
 import top_rated_products
 import pandas as pd
+import os
+from config import RAWG_API_KEY
 
-# Replace with your RAWG API key
-RAWG_API_KEY = "04a6dcbbe4d64960aae21377891e925e"
+# RAWG_API_KEY = os.environ.get("RAWG_API_KEY")
+
 
 # Function to fetch game details from the RAWG API for specific game names
 
