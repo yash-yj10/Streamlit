@@ -103,9 +103,10 @@ def main():
     )
 
     st.markdown('<a name="game-info"></a>', unsafe_allow_html=True)
-    st.title("Game Information App")
-    search_query = st.text_input("Search for a game:", "")
-    search_button = st.button("Search")
+    st.title("Game Recommendation and Information App")
+    with st.form("search-form"):
+        search_query = st.text_input("Search for a game:", "")
+        search_button = st.form_submit_button("Search")
 
     if search_query and search_button:
         game_data = fetch_game_details(search_query)
@@ -117,10 +118,12 @@ def main():
     final_rating = pd.read_csv("final_rating.csv")
     interactions_matrix = pd.read_csv("interactions_matrix.csv")
     game_names = list(top_rated_products.top_n_products(final_rating, 5, 50))
+    st.write("OR")
+    with st.form("recommendation-form"):
+        user_id = st.number_input("Enter your User ID:", min_value=0, step=1)
+        recommend_button = st.form_submit_button("Recommend Games")
 
-    user_id = st.number_input("Enter your User ID:", min_value=0, step=1)
-
-    if st.button("Recommend Games"):
+    if recommend_button:
         if user_id is not None and user_id != "":
             user_id = int(user_id)
             recommended_games = list(top_rated_products.recommendations(
